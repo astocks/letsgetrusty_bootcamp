@@ -1,14 +1,16 @@
-use std::collections::HashMap;
+use serde::{Deserialize, Serialize};
+use serde_json::Result;
+use std::{collections::HashMap, fmt::Display};
 
-// TODO: derive the appropriate traits
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub enum Status {
     Open,
     InProgress,
     Resolved,
-    Closed
+    Closed,
 }
 
-// TODO: derive the appropriate traits
+#[derive(Serialize, Deserialize, PartialEq, Eq, Debug, Clone)]
 pub struct Epic {
     pub name: String,
     pub description: String,
@@ -22,12 +24,12 @@ impl Epic {
             name,
             description,
             status: Status::Open,
-            stories: vec![]
+            stories: vec![],
         }
     }
 }
 
-// TODO: derive the appropriate traits
+#[derive(Serialize, Deserialize, PartialEq, Eq, Debug, Clone)]
 pub struct Story {
     pub name: String,
     pub description: String,
@@ -44,9 +46,10 @@ impl Story {
     }
 }
 
-// TODO: derive the appropriate traits
+#[derive(Serialize, Deserialize, PartialEq, Eq, Debug, Clone)]
 pub struct DBState {
     pub last_item_id: u32,
     pub epics: HashMap<u32, Epic>,
-    pub stories: HashMap<u32, Story>
+    pub stories: HashMap<u32, Story>,
 }
+
